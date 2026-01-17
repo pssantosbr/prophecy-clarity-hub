@@ -14,16 +14,263 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      check_ins: {
+        Row: {
+          created_at: string
+          date: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          date?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      devotionals: {
+        Row: {
+          category: string
+          created_at: string
+          duration_minutes: number | null
+          id: string
+          is_featured: boolean | null
+          tags: string[] | null
+          text: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          is_featured?: boolean | null
+          tags?: string[] | null
+          text: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          is_featured?: boolean | null
+          tags?: string[] | null
+          text?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      favorites: {
+        Row: {
+          created_at: string
+          id: string
+          item_id: string
+          item_type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_id: string
+          item_type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_id?: string
+          item_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notes: {
+        Row: {
+          created_at: string
+          id: string
+          item_id: string
+          item_type: string
+          text: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_id: string
+          item_type: string
+          text?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_id?: string
+          item_type?: string
+          text?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      prayers: {
+        Row: {
+          action_step: string | null
+          category: string
+          created_at: string
+          date: string | null
+          id: string
+          read_time_minutes: number | null
+          reflection_prompts: string[] | null
+          text: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          action_step?: string | null
+          category: string
+          created_at?: string
+          date?: string | null
+          id?: string
+          read_time_minutes?: number | null
+          reflection_prompts?: string[] | null
+          text: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          action_step?: string | null
+          category?: string
+          created_at?: string
+          date?: string | null
+          id?: string
+          read_time_minutes?: number | null
+          reflection_prompts?: string[] | null
+          text?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          interests: string[] | null
+          name: string | null
+          onboarding_completed: boolean | null
+          reminder_enabled: boolean | null
+          reminder_time: string | null
+          theme_preference: string | null
+          timezone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          interests?: string[] | null
+          name?: string | null
+          onboarding_completed?: boolean | null
+          reminder_enabled?: boolean | null
+          reminder_time?: string | null
+          theme_preference?: string | null
+          timezone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          interests?: string[] | null
+          name?: string | null
+          onboarding_completed?: boolean | null
+          reminder_enabled?: boolean | null
+          reminder_time?: string | null
+          theme_preference?: string | null
+          timezone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      verses: {
+        Row: {
+          created_at: string
+          date: string | null
+          id: string
+          reference: string
+          translation: string | null
+          verse_text: string
+        }
+        Insert: {
+          created_at?: string
+          date?: string | null
+          id?: string
+          reference: string
+          translation?: string | null
+          verse_text: string
+        }
+        Update: {
+          created_at?: string
+          date?: string | null
+          id?: string
+          reference?: string
+          translation?: string | null
+          verse_text?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_streak: { Args: { p_user_id: string }; Returns: number }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_admin: { Args: never; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +397,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
